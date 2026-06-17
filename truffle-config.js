@@ -30,6 +30,7 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 require('dotenv').config()
 PRIVATE_KEYS = process.env.PRIVATE_KEYS
 INFURA_API_KEY = process.env.INFURA_API_KEY
+ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY
 module.exports = {
   // 网络配置
   networks: {

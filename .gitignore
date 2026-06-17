@@ -3,3 +3,11 @@ angular.json    //忽略这个angular.json文件
 log/*           //忽略log下的所有文件
 css/*.css       //忽略css目录下的.css文件
 node_modules
+
+# 环境变量与密钥（绝不能提交）
+.env
+.env.*
+
+# 构建产物
+build/
+artifacts/
