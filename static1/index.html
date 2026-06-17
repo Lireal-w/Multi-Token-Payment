@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多代币支付系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .card-hover {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-money-bill-transfer me-2"></i>多代币支付系统
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="token-management.html">代币管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="single-payment.html">单笔支付</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="batch-payment.html">批量支付</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="multi-token-payment.html">多代币支付</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user-info.html">账户信息</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h1 class="display-4">多代币支付系统</h1>
+                <p class="lead">支持多种ERC20代币的安全支付解决方案</p>
+                <div class="mt-4">
+                    <button id="connectWallet" class="btn btn-primary btn-lg">
+                        <i class="fas fa-wallet me-2"></i>连接钱包
+                    </button>
+                    <span id="walletStatus" class="ms-3 badge bg-secondary">未连接</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- 功能卡片 -->
+            <div class="col-md-4 mb-4">
+                <div class="card card-hover h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-coins fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">代币管理</h5>
+                        <p class="card-text">添加、移除和管理支持的代币列表</p>
+                        <a href="token-management.html" class="btn btn-outline-primary">进入</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card card-hover h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-paper-plane fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">单笔支付</h5>
+                        <p class="card-text">使用单一代币向单个地址支付</p>
+                        <a href="single-payment.html" class="btn btn-outline-success">进入</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card card-hover h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-users fa-3x text-info mb-3"></i>
+                        <h5 class="card-title">批量支付</h5>
+                        <p class="card-text">使用单一代币向多个地址批量支付</p>
+                        <a href="batch-payment.html" class="btn btn-outline-info">进入</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card card-hover h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-layer-group fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title">多代币支付</h5>
+                        <p class="card-text">使用多种代币向多个地址支付</p>
+                        <a href="multi-token-payment.html" class="btn btn-outline-warning">进入</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card card-hover h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user fa-3x text-secondary mb-3"></i>
+                        <h5 class="card-title">账户信息</h5>
+                        <p class="card-text">查看余额、授权状态和交易历史</p>
+                        <a href="user-info.html" class="btn btn-outline-secondary">进入</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card card-hover h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-file-contract fa-3x text-dark mb-3"></i>
+                        <h5 class="card-title">合约信息</h5>
+                        <p class="card-text">查看合约版本和支持的代币</p>
+                        <button id="loadContractInfo" class="btn btn-outline-dark">查看</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 合约信息显示区域 -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div id="contractInfo" class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">合约信息</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="contractInfoContent" class="text-center">
+                            <p class="text-muted">点击上方按钮加载合约信息</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">多代币支付系统 &copy; 2023</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/web3.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代币管理 - 多代币支付系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .token-card {
+            transition: transform 0.2s;
+        }
+        .token-card:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-money-bill-transfer me-2"></i>多代币支付系统
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="token-management.html">代币管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="single-payment.html">单笔支付</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="batch-payment.html">批量支付</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="multi-token-payment.html">多代币支付</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user-info.html">账户信息</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1>代币管理</h1>
+                    <button id="connectWallet" class="btn btn-primary">
+                        <i class="fas fa-wallet me-2"></i>连接钱包
+                    </button>
+                </div>
+                <div id="walletStatus" class="alert alert-info">
+                    钱包状态: <span class="badge bg-secondary">未连接</span>
+                </div>
+
+                <!-- 添加代币表单 -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">添加代币</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="addTokenForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="tokenAddress" class="form-label">代币地址</label>
+                                    <input type="text" class="form-control" id="tokenAddress" required>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="tokenSymbol" class="form-label">代币符号</label>
+                                    <input type="text" class="form-control" id="tokenSymbol">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="tokenDecimals" class="form-label">小数位数</label>
+                                    <input type="number" class="form-control" id="tokenDecimals" min="0" max="18" value="18">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="tokenName" class="form-label">代币名称</label>
+                                    <input type="text" class="form-control" id="tokenName">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-check mt-4">
+                                        <input class="form-check-input" type="checkbox" id="isNonStandard">
+                                        <label class="form-check-label" for="isNonStandard">
+                                            非标准代币 (如USDT)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-plus me-2"></i>手动添加代币
+                                </button>
+                                <button type="button" id="autoDetectToken" class="btn btn-outline-primary">
+                                    <i class="fas fa-search me-2"></i>自动检测代币
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 支持的代币列表 -->
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">支持的代币列表</h5>
+                        <button id="refreshTokens" class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-refresh me-1"></i>刷新
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="tokensList" class="row">
+                            <!-- 代币卡片将通过JS动态加载 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">多代币支付系统 &copy; 2023</p>
+        </div>
+    </footer>
+
+    <!-- 模态框 -->
+    <div class="modal fade" id="tokenModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">代币详情</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="tokenModalContent">
+                        <!-- 代币详情内容 -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/web3.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/token-management.js"></script>
+</body>
+</html>

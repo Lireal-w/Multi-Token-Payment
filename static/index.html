@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>账户信息 - 多代币支付系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .token-card {
+            transition: transform 0.2s;
+        }
+        .token-card:hover {
+            transform: translateY(-3px);
+        }
+        .progress {
+            height: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-money-bill-transfer me-2"></i>多代币支付系统
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon">111</span>
+            </button>
+            <!-- <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="single-payment.html">支付</a>
+                    </li>
+                    
+                </ul>
+            </div> -->
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1>账户信息</h1>
+                    <button id="connectWallet" class="btn btn-primary">
+                        <i class="fas fa-wallet me-2"></i>连接钱包
+                    </button>
+                </div>
+                <div id="walletStatus" class="alert alert-info">
+                    钱包状态: <span class="badge bg-secondary">未连接</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <!-- 用户钱包信息 -->
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">钱包信息</h5>
+                        <button id="refreshBalances" class="btn btn-primary">
+                            <a class="nav-link" href="single-payment.html">去支付</a> 
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <strong>地址:</strong>
+                            <p id="userAddress" class="text-truncate">-</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>ETH余额:</strong>
+                            <p id="ethBalance">-</p>
+                        </div>
+                        <div>
+                            <strong>网络:</strong>
+                            <p id="networkInfo">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 mb-4">
+                <!-- 代币概览 -->
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">代币概览</h5>
+                        <button id="refreshBalances" class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-refresh me-1"></i>刷新
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div id="tokensOverview" class="row">
+                            <!-- 代币卡片将通过JS动态加载 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- 授权管理 -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">授权管理</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>代币</th>
+                                        <th>余额</th>
+                                        <th>当前授权</th>
+                                        <th>授权状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="allowanceTableBody">
+                                    <!-- 授权表格内容将通过JS动态加载 -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button id="approveAllTokens" class="btn btn-warning">
+                                <i class="fas fa-unlock me-2"></i>授权所有代币
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 交易历史 -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">交易历史</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-primary active" data-type="all">全部</button>
+                                <button type="button" class="btn btn-outline-primary" data-type="single">单笔支付</button>
+                                <button type="button" class="btn btn-outline-primary" data-type="batch">批量支付</button>
+                                <button type="button" class="btn btn-outline-primary" data-type="multi">多代币支付</button>
+                            </div>
+                        </div>
+                        <div id="transactionHistory">
+                            <p class="text-muted text-center">暂无交易记录</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">多代币支付系统 &copy; 2023</p>
+        </div>
+    </footer>
+
+    <!-- 授权模态框 -->
+    <div class="modal fade" id="approveModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">授权代币</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="approveTokenSelect" class="form-label">选择代币</label>
+                        <select class="form-select" id="approveTokenSelect">
+                            <option value="">请选择代币</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="approveAmount" class="form-label">授权金额</label>
+                        <input type="number" class="form-control" id="approveAmount" min="0" step="0.000001">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="unlimitedApprove">
+                        <label class="form-check-label" for="unlimitedApprove">
+                            无限授权
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" id="confirmApprove" class="btn btn-primary">确认授权</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/web3.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/user-info.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+2_deploy_payment.js
+===================
+正在为开发环境部署模拟代币...
+
+   Replacing 'MockUSDT'
+   --------------------
+   > transaction hash:    0x075b1609aad78a1ab9b0df479e7a61565268137ec0ff9dfb5a172fabacd78dd2
+   > Blocks: 0            Seconds: 0
+   > contract address:    0xF70D979A7eB2A79547991F4e86aBFdF23b464639
+   > block number:        274
+   > block timestamp:     1764391923
+   > account:             0x8070a910fA8360dF140385f8E75F765bc58C6b93
+   > balance:             78.012484197799896428
+   > gas used:            715859 (0xaec53)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.01431718 ETH
+
+
+   Replacing 'MockUSDC'
+   --------------------
+   > transaction hash:    0xd4038e1990246c764537984c18350dfc296d0f16a62446e9847483a1f9137c4d
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x664BEa81004a98957ec4d0db23a7cd90B465EDdF
+   > block number:        275
+   > block timestamp:     1764391923
+   > account:             0x8070a910fA8360dF140385f8E75F765bc58C6b93
+   > balance:             77.998166777799896428
+   > gas used:            715871 (0xaec5f)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.01431742 ETH
+
+MockUSDT 已部署在地址: 0xF70D979A7eB2A79547991F4e86aBFdF23b464639
+MockUSDC 已部署在地址: 0x664BEa81004a98957ec4d0db23a7cd90B465EDdF
+
+   Replacing 'MultiTokenPayment'
+   -----------------------------
+   > transaction hash:    0xb731c19038c051c7e478fd4badebe03ee939cdca753e635bc44a21812b9ba3fc
+   > Blocks: 0            Seconds: 0
+   > contract address:    0xe2d99bb17F3Ad58803dCD70C554F59320f4b81dd
+   > block number:        276
+   > block timestamp:     1764391923
+   > account:             0x8070a910fA8360dF140385f8E75F765bc58C6b93
+   > balance:             77.931680877799896428
+   > gas used:            3324295 (0x32b987)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0664859 ETH
+
+模拟代币已添加到支付合约
+MultiTokenPayment 已部署在地址: 0xe2d99bb17F3Ad58803dCD70C554F59320f4b81dd，网络: development
+最终支持的代币数量: 2
+  - mUSDT (模拟USDT): 0xF70D979A7eB2A79547991F4e86aBFdF23b464639, 小数位数: 6, 非标准代币: true
+  - mUSDC (模拟USDC): 0x664BEa81004a98957ec4d0db23a7cd90B465EDdF, 小数位数: 6, 非标准代币: false
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:           0.0951205 ETH
+
+Summary
+=======
+> Total deployments:   5
+> Final cost:          0.1237551 ETH
